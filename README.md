@@ -14,3 +14,5 @@ enc-pad file
 ```
 
 ```esc``` to exit saving changes
+
+![demo.gif](./out.gif)
