@@ -9,13 +9,15 @@ import (
 	"golang.org/x/crypto/argon2"
 )
 
-func argonKey(key []byte) []byte {
-	salt := []byte("D3G9nTEpqfAMc4mezZxdFepteNDQq8qhMs778mMWLPLbu9T7jSDsbEckUzPuxzuX")
+func argonKey(key []byte, salt []byte) []byte {
 	return argon2.IDKey(key, salt, 1, 64*1024, 4, 32)
 }
 
 func decryptAES(data []byte, key []byte) ([]byte, error) {
-	c, err := aes.NewCipher(argonKey(key))
+	saltLen := 64
+	salt := data[:saltLen]
+	data = data[saltLen:]
+	c, err := aes.NewCipher(argonKey(key, salt))
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +38,12 @@ func decryptAES(data []byte, key []byte) ([]byte, error) {
 }
 
 func encryptAES(data, key []byte) ([]byte, error) {
-	aes, err := aes.NewCipher(argonKey(key))
+	salt := make([]byte, 64)
+	_, err := rand.Read(salt)
+	if err != nil {
+		return nil, err
+	}
+	aes, err := aes.NewCipher(argonKey(key, salt))
 	if err != nil {
 		return nil, err
 	}
@@ -50,5 +57,5 @@ func encryptAES(data, key []byte) ([]byte, error) {
 		return nil, err
 	}
 	ciphertext := gcm.Seal(nonce, nonce, data, nil)
-	return ciphertext, nil
+	return append(salt, ciphertext...), nil
 }
