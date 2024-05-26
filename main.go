@@ -98,9 +98,15 @@ func main() {
 	}
 	data, err := encryptAES([]byte(m.(model).textarea.Value()), pwkey)
 	if err != nil {
-		os.WriteFile(os.Args[1], []byte(m.(model).textarea.Value()), os.ModePerm)
 		fmt.Println(err, "writing file without encryption")
+		err = os.WriteFile(os.Args[1], []byte(m.(model).textarea.Value()), os.ModePerm)
+		if err != nil {
+			fmt.Println(err, m.(model).textarea.Value())
+		}
 		os.Exit(1)
 	}
-	os.WriteFile(os.Args[1], data, os.ModePerm)
+	err = os.WriteFile(os.Args[1], data, os.ModePerm)
+	if err != nil {
+		fmt.Println(data)
+	}
 }
