@@ -1,4 +1,4 @@
-# enc-pad, AES encripted terminal file editor
+# enc-pad, AES encripted terminal file editor [![build](https://github.com/f01c33/enc-pad/actions/workflows/build.yml/badge.svg)](https://github.com/f01c33/enc-pad/actions/workflows/build.yml)
 
 Made with bubbletea-app-template
 
