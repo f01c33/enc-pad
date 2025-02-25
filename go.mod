@@ -1,13 +1,12 @@
 module github.com/f01c33/enc-pad
 
 go 1.21
-
-toolchain go1.22.3
+toolchain go1.23.6
 
 require (
 	github.com/charmbracelet/bubbles v0.18.0
 	github.com/charmbracelet/bubbletea v1.3.3
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.35.0
 )
 
 require (
