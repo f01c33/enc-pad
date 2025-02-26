@@ -5,7 +5,7 @@ toolchain go1.23.6
 
 require (
 	github.com/charmbracelet/bubbles v0.18.0
-	github.com/charmbracelet/bubbletea v1.3.3
+	github.com/charmbracelet/bubbletea v1.3.4
 	golang.org/x/crypto v0.35.0
 )
 
